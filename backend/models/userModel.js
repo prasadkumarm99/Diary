@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
+    unique: true,
     validate() {
       return validator.isEmail(this.email)
     }
@@ -21,9 +22,6 @@ const userSchema = new mongoose.Schema({
     validate() {
       return validator.isStrongPassword(this.password)
     }
-  },
-  diary: {
-    type: []
   }
 })
 

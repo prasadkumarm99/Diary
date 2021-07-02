@@ -5,36 +5,34 @@ const router = express.Router()
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password, diary } = req.body
+    const { name, email, password } = req.body
     const user = new User({
       name,
       email,
-      password,
-      diary
+      password
     })
     const newUser = await user.save()
     if (newUser) {
-      res.send(newUser)
-      console.log("User saved successfully.")
+      res.status(201).send(newUser)
     } else {
-      console.log("Failed to save user")
+      res.status(400).send()
     }
   } catch (err) {
-    console.log("Error:", err)
+    res.status(400).send()
   }
 })
 
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body
-    console.log(req.body)
-    await User.findOne({ email, password }, (err, user) => {
-      if (err) return console.log("Error:", err)
-      res.send(user)
-      console.log("User existed.")
-    })
+    const user = await User.findOne({ email, password })
+    if (user) {
+      res.status(302).send(user)
+    } else {
+      res.status(404).send()
+    }
   } catch (err) {
-    console.log("Error:", err)
+    res.status(400).send()
   }
 })
 
