@@ -9,6 +9,11 @@ const pageSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
   }
 })
 

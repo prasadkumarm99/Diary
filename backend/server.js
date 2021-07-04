@@ -12,7 +12,8 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/DiaryBook"
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false
 }).then(x => {
   console.log("Connected to MongoDB. Name:", x.connections[0].name)
 }).catch(err => {
