@@ -15,12 +15,12 @@ router.post("/register", async (req, res) => {
     const token = await user.newAuthToken()
     const newUser = await user.save()
     if (newUser) {
-      res.status(201).send({ user: newUser, token })
+      res.send({ user: newUser, token })
     } else {
-      res.status(400).send()
+      res.status(400).send("Invalid credentials")
     }
   } catch (err) {
-    res.status(400).send()
+    res.status(400).send("Server not found")
   }
 })
 
@@ -30,12 +30,12 @@ router.post("/login", async (req, res) => {
     const user = await User.findByCredentials(email, password)
     const token = await user.newAuthToken()
     if (user) {
-      res.status(302).send({ user, token })
+      res.send({ user, token })
     } else {
-      res.status(404).send()
+      res.status(404).send("Invalid credentials")
     }
   } catch (err) {
-    res.status(400).send()
+    res.status(400).send("Server not found")
   }
 })
 
@@ -47,6 +47,7 @@ router.delete("/logout", auth, async (req, res) => {
     }
     req.user.tokens = result
     await req.user.save()
+    res.send()
   } catch(e) {
     res.status(400).send()
   }

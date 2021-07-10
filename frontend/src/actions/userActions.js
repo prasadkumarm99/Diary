@@ -4,7 +4,7 @@ const register = (name, email, password, callback) => {
   try {
     const response = Axios.post("/user/register", { name, email, password })
     response.then(result => {
-      callback(undefined, result)
+      callback(undefined, result.data)
     })
   } catch(err) {
     callback(err, undefined)
@@ -12,17 +12,20 @@ const register = (name, email, password, callback) => {
 }
 
 const login = (email, password, callback) => {
-  try{
-    const response = Axios.post("/user/login", { email, password })
-    response.then(result => {
-      console.log("Register response:", result.data)
-      callback(undefined, result.data)
-    })
-    console.log("Login response:", response)
-  } catch (err) {
-    callback(err, undefined)
-  }
-  
+  const response = Axios.post("/user/login", { email, password })
+  response.then(result => {
+    callback(undefined, result.data)
+  })
 }
 
-export { login, register }
+const logout = (token) => {
+  try {
+    Axios.delete("/user/logout", {
+      headers: {
+        Authorization: "Bearer " + token
+      }
+    })
+  } catch(e) {}
+}
+
+export { register, login, logout }

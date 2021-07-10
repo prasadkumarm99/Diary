@@ -1,10 +1,9 @@
 // User Reducer
 
 const userDefault = {
-  id: "",
+  _id: "",
   name: "",
-  email: "",
-  isLogged: false
+  email: ""
 }
 
 const userReducer = (state = userDefault, action) => {

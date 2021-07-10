@@ -1,65 +1,77 @@
 import React, { useState } from "react"
-import { register } from "../actions/userActions"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import moment from "moment"
 import Swal from 'sweetalert2'
+import Cookie from "js-cookie"
+import { register } from "../actions/userActions"
+import Header from "../components/Header"
+import { loginUser } from "../redux-store/actions"
+
 
 const RegisterPage = (props) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [rePassword, setRePassword] = useState("")
-  const diary = [{
-      createdAt: moment(),
-      content: "Prasad"
-    },{
-      createdAt: moment(),
-      content: "kumar"
-    }
-  ]
+  const dispatch = useDispatch()
+  const token = Cookie.get("token")
 
-  const onSuccess = (err, user) => {
+  if (token) {
+    props.history.push("/dashboard")
+    return <div></div>
+  }
+
+  const onSuccess = (err, data) => {
     if (err) return console.log("Error on registration", err)
-    Swal.fire('Registered Successfully', 'Please Login', 'success')
-    props.history.push("/")
+    dispatch(loginUser(data.user))
+    Cookie.set("token", data.token)
+    Swal.fire('Registered Successfully', 'Feel free to explore', 'success')
+    props.history.push("/dashboard")
   }
 
   const onSubmit = (e) => {
     e.preventDefault()
     if (password === rePassword) {
-      register(name, email, password, diary, onSuccess)
+      register(name, email, password, onSuccess)
     }
   }
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <h3>Register</h3>
-        <input 
-          type="text" 
-          placeholder="Full Name" 
-          onChange={(e) => setName(e.target.value)} 
-        />
-        <input 
-          type="text" 
-          placeholder="Email" 
-          onChange={(e) => setEmail(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          onChange={(e) => setPassword(e.target.value)} 
-        />
-        <input 
-          type="password" 
-          placeholder="Confirm Password" 
-          onChange={(e) => setRePassword(e.target.value)} 
-        />
-        <button>Register</button>
-        <p>Already a user? 
-          <Link to="/">Login</Link> 
-        </p>
-      </form>
+      <Header route={props.history.location.pathname}/>
+      <div className="centre-container">
+        <form className="auth-form" onSubmit={onSubmit}>
+          <h3 className="component">Register</h3>
+          <input 
+            className="component"
+            type="text" 
+            placeholder="Full Name" 
+            onChange={(e) => setName(e.target.value)} 
+          />
+          <input 
+            className="component"
+            type="text" 
+            placeholder="Email" 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+          <input 
+            className="component"
+            type="password" 
+            placeholder="Password" 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+          <input 
+            className="component"
+            type="password" 
+            placeholder="Confirm Password" 
+            onChange={(e) => setRePassword(e.target.value)} 
+          />
+          <button className="component">Register</button>
+          <p className="component">Already a user? 
+            <Link to="/">Login</Link> 
+          </p>
+        </form>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,22 @@
+.page {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid $dark-white;
+  border-top: none;
+  padding: 0 $m-size;
+}
+
+.link {
+  text-decoration: none;
+  color: darken($dark-white, 50%);
+}
+
+.remove {
+  background: none;
+  border: 1px solid $dark-white;
+  font-weight: bold;
+  margin-top: $m-size;
+  &:hover {
+    cursor: pointer;
+  }
+}

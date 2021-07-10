@@ -18,10 +18,9 @@ export default getStore
 
 {
   user: {
-    id: "",
+    _id: "",
     name: "",
     email: "",
-    isLogged: false
   }
   diary: [
     {

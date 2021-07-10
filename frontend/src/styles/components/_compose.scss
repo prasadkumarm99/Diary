@@ -1,0 +1,24 @@
+.compose {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+  font-weight: bold;
+  font-family: sans-serif, Arial, Helvetica;
+  background: #E0C9A6;
+  padding: $m-size;
+  box-sizing: border-box;
+  border-radius: 1%;
+}
+
+.save {
+  background: darken($pastel-blue, 65%);
+  color: $soft-white;
+  font-weight: bold;
+  height: $l-size;
+  color: $soft-white;
+  margin-top: $m-size;
+}

@@ -1,0 +1,16 @@
+.add-page {
+  background: darken($pastel-blue, 65%);
+  color: $soft-white;
+  border: none;
+  width: 100%;
+  height: $xxl-size;
+  border: 3px solid $dark-white;
+  &:hover {
+    cursor: pointer;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+

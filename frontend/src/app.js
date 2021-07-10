@@ -8,14 +8,14 @@ import getStore from "./redux-store/store"
 
 const store = getStore()
 
-const DiaryApp = () => (
-  <Provider store={store}>
-    <DiaryRouter />
-  </Provider>
-)
-
-store.subscribe(() => {
-  console.log("Upadated")
-})
+class DiaryApp extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <DiaryRouter />
+      </Provider>
+    )
+  }
+}
 
 ReactDOM.render(<DiaryApp />, document.getElementById("root"))

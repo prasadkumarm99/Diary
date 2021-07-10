@@ -52,7 +52,13 @@ userSchema.methods.toJSON = function() {
 // Instance method for generating webtoken
 userSchema.methods.newAuthToken = async function() {
   const user = this
-  const token = jwt.sign({ _id: user._id.toString() }, "Diary$Admin$852")
+  const token = jwt.sign({ _id: user._id.toString() }, "Diary$Admin$852", { expiresIn: "2h" })
+  user.tokens = user.tokens.filter((token) => {
+    try{
+      jwt.verify(token, "Diary$Admin$852").exp
+      return token
+    } catch (e) {}
+  })
   user.tokens = user.tokens.concat({ token })
   await user.save()
   return token
@@ -60,7 +66,7 @@ userSchema.methods.newAuthToken = async function() {
 
 // Static method for validating credentials
 userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne({email})
+  const user = await User.findOne({ email })
   if (!user) {
     throw new Error("Invalid credentials")
   }

@@ -1,0 +1,35 @@
+.header {
+  background: darken($pastel-blue, 65%);
+}
+
+.view {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 0;
+  padding: 0;
+  font-size: 40px;
+  color: $soft-white;
+}
+
+.subtitle {
+  margin: 0;
+  padding: 0;
+  font-family: Brush Script MT, Brush Script Std, cursive;
+  font-size: 24px;
+  color: $dark-white;
+}
+
+.logout {
+  background: none;
+  border: none;
+  border: 1px solid $soft-white;
+  margin-top: 24px;
+  padding: 5px;
+  color: $soft-white;
+  &:hover {
+    cursor: pointer;
+  }
+}

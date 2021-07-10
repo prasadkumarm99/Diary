@@ -1,21 +1,31 @@
 import React from "react"
 import moment from "moment"
 import { Link } from "react-router-dom"
-import { connect } from "react-redux"
+import { useDispatch } from "react-redux"
+import Cookie from "js-cookie"
 import { remove } from "../redux-store/actions"
+import { removePage } from "../actions/diaryActions"
 
 const Page = (props) => {
+  const dispatch = useDispatch()
+  const token = Cookie.get("token")
+
   const onRemove = () => {
-    props.dispatch(remove({ createdAt: props.date }))
+    removePage(token, props.date)
+    dispatch(remove({ date: props.date }))
   }
+
   return (
-  <div>
-    <h4>{`${props.serial}. ${moment(props.date).format("MMMM Do YYYY")}`}</h4>
+  <div className="page">
+    <Link className="link" to={`/compose/${props.date}`}>
+      <div>
+        <h4>{`${props.serial}. ${moment(props.date).format("MMMM Do YYYY")}`}</h4>
+      </div>
+    </Link>
     <span>
-      <Link to={`/compose/${props.date}`}><button>Edit</button></Link>
-      <button onClick={onRemove}>X</button>
+        <button className="remove" onClick={onRemove}>X</button>
     </span>
   </div>
 )}
 
-export default connect()(Page)
+export default Page

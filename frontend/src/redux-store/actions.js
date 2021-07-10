@@ -1,11 +1,10 @@
 // LOGIN
-const loginUser = ({ id, name, email, isLogged }) => ({
+const loginUser = ({ _id, name, email }) => ({
   type: "LOGIN",
   user: {
-    id,
+    _id,
     name,
-    email,
-    isLogged
+    email
   }
 })
 
@@ -14,28 +13,37 @@ const logoutUser = () => ({
   type: "LOGOUT"
 })
 
+// LOAD
+const load = (diary) => ({
+  type: "LOAD",
+  diary: diary.map((page) => ({
+    date: page.date,
+    content: page.content
+  }))
+})
+
 // ADD
-const add = ({ createdAt, content }) => ({
+const add = ({ date, content }) => ({
   type: "ADD",
   page: {
-    createdAt,
+    date,
     content
   }
 })
 
 // EDIT
-const edit = ({ createdAt, content }) => ({
+const edit = ({ date, content }) => ({
   type: "EDIT",
-  createdAt,
+  date,
   page: {
     content
   }
 })
 
 // REMOVE
-const remove = ({ createdAt }) => ({
+const remove = ({ date }) => ({
   type: "REMOVE",
-  createdAt
+  date
 })
 
-export { loginUser, logoutUser, add, edit, remove }
+export { loginUser, logoutUser, load, add, edit, remove }

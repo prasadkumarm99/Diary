@@ -1,45 +1,54 @@
 import React, { useState, useEffect } from "react"
-import { connect } from "react-redux"
-import { add, edit } from "../redux-store/actions"
 import moment from "moment"
+import { useSelector, useDispatch } from "react-redux"
+import Cookie from "js-cookie"
+import { addPage, editPage } from "../actions/diaryActions"
+import Header from "../components/Header"
+import { add, edit } from "../redux-store/actions"
 
-const Compose = (props) => {
-    const [content, setContent] = useState("")
-    const [createdAt, setCreatedAt] = useState(moment().toISOString())
-    const date = props.match.params.id
-    console.log(props)
+const ComposePage = (props) => {
+  const [content, setContent] = useState("")
+  const diary = useSelector((state) => state.diary)
+  const date = moment().toISOString()
+  const token = Cookie.get("token") 
+  const url = props.match.params.id
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-      if (date !== "id") {
-        setCreatedAt(date)
-        setContent(props.diary.filter((page) => page.createdAt === date)[0].content)
-      }
-    }, [])
+  if (!token) {
+    props.history.push("/")
+    return <div></div>
+  }
 
-    const onSave = (e) => {
-      e.preventDefault()
-      if (date !== "id") {
-        props.dispatch(edit({ createdAt, content}))
-      } else {
-        props.dispatch(add({ createdAt, content}))
-      }
-      props.history.push("/dashboard")
+  useEffect(() => {
+    if (url !== "id") {
+      setContent(diary.filter((page) => page.date === url)[0].content)
     }
-    return (
-      <div>
+  }, [])
+
+  const onSave = (e) => {
+    e.preventDefault()
+    if (url !== "id") {
+      editPage(token, url, content)
+      dispatch(edit({ date: url, content }))
+    } else {
+      addPage(token, date, content)
+      dispatch(add({ date, content }))
+    }
+    props.history.push("/dashboard")
+  }
+
+  return (
+    <div>
+      <Header route={props.history.location.pathname}/>
+      <div className="container">
         <h3>Compose Today</h3>
-        <form onSubmit={onSave}>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)}></textarea>
-          <button>Save</button>
+        <form className="compose" onSubmit={onSave}>
+          <textarea value={content} onChange={(e) => setContent(e.target.value)} rows="30"></textarea>
+          <button className="save" >Save</button>
         </form>
       </div>
-    )
+    </div>
+  )
 }
-
-const mapStateToProps = (store) => ({
-  diary: store.diary
-})
-
-const ComposePage = connect(mapStateToProps)(Compose)
 
 export default ComposePage

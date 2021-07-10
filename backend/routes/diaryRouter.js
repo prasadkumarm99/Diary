@@ -10,7 +10,7 @@ router.post("/add", auth, async (req, res) => {
      })
     const newPage = await page.save()
     if (newPage) {
-      res.status(201).send(newPage)
+      res.send(newPage)
     } else {
       throw new Error()
     }
@@ -49,13 +49,26 @@ router.get("/pages", auth, async (req, res) => {
   try {
     const pages = await Page.find({ author: req.user._id })
     if (pages) {
-      res.status(302).send(pages)
+      res.send(pages)
     } else {
       throw new Error()
     }
   } catch(err) {
     res.status(404).send()
   }
+})
+
+router.get("/content", auth, async (req, res) => {
+  try {
+    const page = await Page.findOne({ date: req.body.date })
+    if (page) {
+      res.send(page.content) 
+    } else {
+      throw new Error()
+    }
+  } catch (err) {
+    res.status(404).send()
+  } 
 })
 
 module.exports = router
