@@ -5,7 +5,7 @@ const userRouter = require("./routes/userRouter")
 const diaryRouter = require("./routes/diaryRouter")
 
 const PORT = process.env.PORT || 5000
-const MONGO_URL = "mongodb+srv://diary-admin:1111@diarydb.hrgxd.mongodb.net/diaryBase?retryWrites=true&w=majority"
+const MONGO_URL = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/test"
 
 //MongoDB connection
 mongoose.connect(MONGO_URL, {
