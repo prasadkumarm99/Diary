@@ -6,7 +6,7 @@
   "author": "Prasad Kumar <prasadkumarmedicherla@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js && webpack --config frontend/webpack.prod.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -14,7 +14,8 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^5.13.0",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "webpack": "5.38.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.8"
