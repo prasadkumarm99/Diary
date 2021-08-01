@@ -6,7 +6,8 @@
   "author": "Prasad Kumar <prasadkumarmedicherla@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js",
+    "heroku-postbuild": "cd frontend | webpack --config webpack.prod.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

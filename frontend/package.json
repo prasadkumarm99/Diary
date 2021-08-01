@@ -9,7 +9,7 @@
     "server": "live-server public/",
     "build": "webpack --config webpack.prod.js",
     "dev-build": "webpack --watch --config webpack.dev.js",
-    "dev-server": "webpack serve --open --config webpack.dev.js"
+    "dev-server": "webpack serve --open --config webpack.dev.js",
   },
   "dependencies": {
     "axios": "^0.21.1",
