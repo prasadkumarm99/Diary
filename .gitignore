@@ -39,6 +39,10 @@ build/Release
 
 # Dependency directories
 node_modules/
+frontend/public/bundle.js
+frontend/public/bundle.js.map
+frontend/public/styles.css
+frontend/public/styles.css.map
 jspm_packages/
 playground.js
 
