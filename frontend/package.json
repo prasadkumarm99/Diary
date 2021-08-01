@@ -4,12 +4,12 @@
   "description": "Node.js and React.js",
   "main": "index.js",
   "author": "Prasad Kumar M",
-  "license": "Apache License 2.0",
+  "license": "MIT",
   "scripts": {
     "server": "live-server public/",
     "build": "webpack --config webpack.prod.js",
     "dev-build": "webpack --watch --config webpack.dev.js",
-    "dev-server": "webpack serve --open --config webpack.dev.js",
+    "dev-server": "webpack serve --open --config webpack.dev.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
