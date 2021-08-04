@@ -6,7 +6,7 @@
   "author": "Prasad Kumar <prasadkumarmedicherla@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cd frontend && yarn install && yarn build && cd.. && nodemon backend/server.js"
+    "start": "yarn install && cd frontend && yarn install && yarn build && cd.. && nodemon backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
