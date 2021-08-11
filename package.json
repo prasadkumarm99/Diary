@@ -6,8 +6,8 @@
   "author": "Prasad Kumar <prasadkumarmedicherla@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon backend/server.js",
-    "heroku-postbuild": "cd frontend && yarn install && yarn run build"
+    "start": "cd frontend && (yarn install && yarn run build)",
+    "heroku-postbuild": "node backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -15,8 +15,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.1",
     "mongoose": "^5.13.0",
-    "validator": "^13.6.0",
-    "webpack": "5.38.1"
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.8"
