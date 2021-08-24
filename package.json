@@ -6,8 +6,7 @@
   "author": "Prasad Kumar <prasadkumarmedicherla@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "cd frontend && (yarn install && yarn run build)",
-    "heroku-postbuild": "node backend/server.js"
+    "start": "node backend/server.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
