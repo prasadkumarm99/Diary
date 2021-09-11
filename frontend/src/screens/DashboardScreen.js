@@ -9,8 +9,11 @@ import Header from "../components/Header"
 import { load } from "../redux-store/actions"
 
 const DashboardPage = (props) => {
+  const arrange = (book) => book.sort((page1, page2) => moment(page2.date) - moment(page1.date))
+
   const token = Cookie.get("token")
-  const diary = useSelector((state) => state.diary)
+  let diary = useSelector((state) => state.diary)
+  diary = arrange(diary)
   const [isTodayDone, setIsTodayDone] = useState(false)
   const dispatch = useDispatch()
 
@@ -23,6 +26,11 @@ const DashboardPage = (props) => {
     if (diary.length == 0) {
       getDiary(token, (err, pages) => {
         if (err) return console.log(err)
+        console.log(pages)
+        if (pages.length >= 2) {
+          pages = arrange(pages)
+          console.log(pages)
+        }
         dispatch(load(pages))
       })
       setIsTodayDone(false)
@@ -38,7 +46,7 @@ const DashboardPage = (props) => {
       <Header route={props.history.location.pathname}/>
       <div className="container">
         <h3>Diary Pages</h3>
-        <Link to="/compose/id" >
+        <Link to="/compose/id">
           <button className="add-page" disabled={isTodayDone}>Add today's page</button>
         </Link>
         <div>
