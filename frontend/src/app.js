@@ -1,3 +1,5 @@
+// This is the origin application code
+
 import React from "react"
 import ReactDOM from "react-dom"
 import "normalize.css/normalize.css"
